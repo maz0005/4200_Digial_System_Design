@@ -2,23 +2,16 @@
 -- Company: 
 -- Engineer: Marco A. Zuniga
 -- Create Date: 10/16/2018 05:02:36 PM
-
+-- Description: Register file
+--
 -- Dependencies: 
---FSM2
---RAM
---HexDisplay
+-- FSM2(Lab 2)
+-- RAM (Lab 6)
+-- HexDisplay (Lab 3)
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
 
 entity TOP is
  generic(M : integer := 2; --2^M Addresses
