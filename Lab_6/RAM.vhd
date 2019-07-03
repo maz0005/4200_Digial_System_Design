@@ -1,7 +1,7 @@
 ----------------------------------------------------------------------------------
 -- Company: 
 -- Engineer: Marco A. Zuniga
--- 
+-- Description: RAM module
 -- Create Date: 10/08/2018 06:27:19 PM
 
 library IEEE;
