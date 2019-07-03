@@ -1,0 +1,78 @@
+CONSTANT switches, 00    ;read switch values at port 0
+CONSTANT LEDs, 01    ;write 7-seg LED at port 1
+
+CONSTANT LED_0, 01
+CONSTANT LED_1, 4F
+CONSTANT LED_2, 12
+CONSTANT LED_3, 06
+CONSTANT LED_4, 4C
+CONSTANT LED_5, 24
+CONSTANT LED_6, 60
+CONSTANT LED_7, 0F
+CONSTANT LED_8, 00
+CONSTANT LED_9, 04
+CONSTANT LED_A, 08
+CONSTANT LED_B, 60
+CONSTANT LED_C, 31
+CONSTANT LED_D, 42
+CONSTANT LED_E, 30
+CONSTANT LED_F, 38
+
+
+NAMEREG s0, switch_value
+NAMEREG s1, LED_output
+
+LOAD LED_output, LED_0
+STORE LED_output, 00
+
+LOAD LED_output, LED_1
+STORE LED_output, 01
+
+LOAD LED_output, LED_2
+STORE LED_output, 02
+
+LOAD LED_output, LED_3
+STORE LED_output, 03
+
+LOAD LED_output, LED_4
+STORE LED_output, 04
+
+LOAD LED_output, LED_5
+STORE LED_output, 05
+
+LOAD LED_output, LED_6
+STORE LED_output, 06
+
+LOAD LED_output, LED_7
+STORE LED_output, 07
+
+LOAD LED_output, LED_8
+STORE LED_output, 08
+
+LOAD LED_output, LED_9
+STORE LED_output, 09
+
+LOAD LED_output, LED_A
+STORE LED_output, 0A
+
+LOAD LED_output, LED_B
+STORE LED_output, 0B
+
+LOAD LED_output, LED_C
+STORE LED_output, 0C
+
+LOAD LED_output, LED_D
+STORE LED_output, 0D
+
+LOAD LED_output, LED_E
+STORE LED_output, 0E
+
+LOAD LED_output, LED_F
+STORE LED_output, 0F
+
+
+loop: INPUT switch_value, switches
+      AND switch_value, 0F
+	  FETCH LED_output, (switch_value)
+	  OUTPUT LED_output, LEDs
+	  JUMP loop
