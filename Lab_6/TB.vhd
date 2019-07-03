@@ -1,7 +1,10 @@
 ----------------------------------------------------------------------------------
 -- Company: 
 -- Engineer:  Marco Zuniga
--- 
+-- Description: Test bench used to test register file
+-- Corresponsing addresses were written in as its data and then checked.
+-- Each corresponding address was then complemented and written in as its
+-- data and then checked.
 -- Create Date: 10/09/2018 08:17:42 PM
 
 
