@@ -5,8 +5,7 @@
 -- Create Date: 10/24/2018 04:12:38 PM
 -- Design Name: 
 -- Module Name: TOP - Behavioral
--- Description: 
--- 
+-- Description: Hex display controlled by 4 switches via PicoBlaze
 -- Dependencies: 
 -- 
 ----------------------------------------------------------------------------------
