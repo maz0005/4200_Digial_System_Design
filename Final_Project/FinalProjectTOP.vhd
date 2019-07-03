@@ -9,7 +9,11 @@
 -- Target Devices: 
 -- Tool Versions: 
 -- Description: 
--- 
+-- Register file. Will display register file for 4 seconds and then 
+-- scroll "ELEC 4200" across LED displays and display register files
+-- for another 4 seconds. Timing handled by creating a dummy loop
+-- with the right amount of assembly instructions needed. 
+   
 -- Dependencies: 
 -- 
 -- Revision:
