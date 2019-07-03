@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------------
 -- Company: 
--- Engineer: 
+-- Engineer: Marco A. Zuniga
 -- 
 -- Create Date: 10/31/2018 09:09:08 AM
 -- Design Name: 
@@ -9,12 +9,6 @@
 -- Target Devices: 
 -- Tool Versions: 
 -- Description: 
--- 
--- Dependencies: 
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
 
