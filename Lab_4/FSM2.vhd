@@ -4,6 +4,8 @@
 -- 
 -- Create Date: 09/25/2018 06:44:36 PM
 -- Design Name: 
+-- Description: Finite state machine. One shot-delay used to slow the high clock domain
+-- from FPGA to a slower clock frequency to prevent multiple presses.
 -- Module Name: FSM2 - Behavioral
 ----------------------------------------------------------------------------------
 
