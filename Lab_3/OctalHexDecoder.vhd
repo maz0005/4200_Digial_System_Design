@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------------
 -- Company: 
--- Engineer: 
+-- Engineer: Marco A. Zuniga
 -- 
 -- Create Date: 09/19/2018 03:29:09 PM
 -- Design Name: 
@@ -8,15 +8,9 @@
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
--- Description: 
+-- Description: Decoder used to display a 3/4 bit binary number on a segment display
 -- 
--- Dependencies: 
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
-----------------------------------------------------------------------------------
+
 
 
 library IEEE;
