@@ -1,0 +1,463 @@
+CONSTANT allData, 00    ;read address and input at port 0
+CONSTANT seg1, 01    ;write 7-seg LED at port 1
+CONSTANT seg2, 02    ;write 7-seg LED at port 2
+CONSTANT seg3, 04    ;write 7-seg LED at port 4
+CONSTANT seg4, 08    ;write 7-seg LED at port 8
+
+;Write segments values for each LED
+CONSTANT LED_0, 01   
+CONSTANT LED_1, 4F
+CONSTANT LED_2, 12
+CONSTANT LED_3, 06
+CONSTANT LED_4, 4C
+CONSTANT LED_5, 24
+CONSTANT LED_6, 60
+CONSTANT LED_7, 0F
+CONSTANT LED_8, 00
+CONSTANT LED_9, 04
+CONSTANT LED_A, 08
+CONSTANT LED_B, 60
+CONSTANT LED_C, 31
+CONSTANT LED_D, 42
+CONSTANT LED_E, 30
+CONSTANT LED_F, 38
+
+;Create constants for readibitly 
+CONSTANT seg5, 10
+CONSTANT seg6, 20
+CONSTANT seg7, 40
+CONSTANT seg8, 80
+CONSTANT innerLoop, FF   ;Inner loop value for displaying registers for 4 sec.
+CONSTANT middleLoop, FF  ;Middle loop value for displaying registers for 4 sec.
+CONSTANT outerLoop, 04'd ;Outer loop value for displaying registers for 4 sec.
+CONSTANT scrollInner, FF  ;Inner loop value for scrolling effect.
+CONSTANT scrollOuter, 1E  ;Outer loop value for scrolling effect.
+
+NAMEREG s0, dataInput
+NAMEREG s1, address  
+NAMEREG s2, data1  ;R1
+NAMEREG s3, data2  ;R2
+NAMEREG s4, data3  ;R3
+NAMEREG s5, data4  ;R4
+NAMEREG s6, LED_output
+NAMEREG s7, delayReg
+
+NAMEREG s8, loop1Reg 
+NAMEREG s9, loop2Reg
+NAMEREG sA, loop3Reg
+
+
+
+LOAD LED_output, LED_0
+STORE LED_output, 00
+
+LOAD LED_output, LED_1
+STORE LED_output, 01
+
+LOAD LED_output, LED_2
+STORE LED_output, 02
+
+LOAD LED_output, LED_3
+STORE LED_output, 03
+
+LOAD LED_output, LED_4
+STORE LED_output, 04
+
+LOAD LED_output, LED_5
+STORE LED_output, 05
+
+LOAD LED_output, LED_6
+STORE LED_output, 06
+
+LOAD LED_output, LED_7
+STORE LED_output, 07
+
+LOAD LED_output, LED_8
+STORE LED_output, 08
+
+LOAD LED_output, LED_9
+STORE LED_output, 09
+
+LOAD LED_output, LED_A
+STORE LED_output, 0A
+
+LOAD LED_output, LED_B
+STORE LED_output, 0B
+
+LOAD LED_output, LED_C
+STORE LED_output, 0C
+
+LOAD LED_output, LED_D
+STORE LED_output, 0D
+
+LOAD LED_output, LED_E
+STORE LED_output, 0E
+
+LOAD LED_output, LED_F
+STORE LED_output, 0F
+
+
+LOAD data1, 00
+LOAD data2, 00
+LOAD data3, 00
+LOAD data4, 00
+
+ENABLE INTERRUPT
+
+START:
+
+LOAD loop3Reg, outerLoop
+LOOPC:
+LOAD loop2Reg, middleLoop
+LOOPB:
+LOAD loop1Reg, innerLoop
+LOOPA:
+      ;980 instruction until first SUB
+	  FETCH LED_output, (data1) 
+	  OUTPUT LED_output, seg1
+	  CALL DELAY  ;243 instructions
+	  FETCH LED_output, (data2)
+	  OUTPUT LED_output, seg2
+	  CALL DELAY  ;243
+	  FETCH LED_output, (data3)
+	  OUTPUT LED_output, seg3
+	  CALL DELAY  ;243
+	  FETCH LED_output, (data4)
+	  OUTPUT LED_output, seg4
+	  CALL DELAY   ;243
+	  
+      SUB loop1Reg, 01
+      JUMP NZ, LOOPA
+	  
+	  SUB loop2Reg, 01
+	  JUMP NZ, LOOPB
+	  
+	  SUB loop3Reg, 01
+	  JUMP NZ, LOOPC 
+	  
+	 
+
+	  
+;E
+LOAD loop2Reg, scrollOuter
+LOOPB2:
+LOAD loop1Reg, scrollInner
+LOOPA2:  
+FETCH LED_output, 0E
+OUTPUT LED_output, seg1 
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg2
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg3
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg4 
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg5
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg6
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg7
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg8
+CALL DELAY
+SUB loop1Reg, 01
+JUMP NZ, LOOPA2
+SUB loop2Reg, 01
+JUMP NZ, LOOPB2
+
+;EL
+LOAD loop2Reg, scrollOuter
+LOOPB3:
+LOAD loop1Reg, scrollInner
+LOOPA3:  
+LOAD LED_output, F1
+OUTPUT LED_output, seg1 
+CALL DELAY
+FETCH LED_output, 0E
+OUTPUT LED_output, seg2
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg3
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg4 
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg5
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg6
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg7
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg8
+CALL DELAY
+SUB loop1Reg, 01
+JUMP NZ, LOOPA3
+SUB loop2Reg, 01
+JUMP NZ, LOOPB3
+
+;ELE
+LOAD loop2Reg, scrollOuter
+LOOPB4:
+LOAD loop1Reg, scrollInner
+LOOPA4:  
+FETCH LED_output, 0E
+OUTPUT LED_output, seg1 
+CALL DELAY
+;1111 0001 PABCDEFG
+LOAD LED_output, F1
+OUTPUT LED_output, seg2 
+CALL DELAY
+FETCH LED_output, 0E
+OUTPUT LED_output, seg3
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg4 
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg5
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg6
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg7
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg8
+CALL DELAY
+SUB loop1Reg, 01
+JUMP NZ, LOOPA4
+SUB loop2Reg, 01
+JUMP NZ, LOOPB4
+
+;ELEC
+LOAD loop2Reg, scrollOuter
+LOOPB5:
+LOAD loop1Reg, scrollInner
+LOOPA5:  
+FETCH LED_output, 0C
+OUTPUT LED_output, seg1 
+CALL DELAY
+FETCH LED_output, 0E
+OUTPUT LED_output, seg2 
+CALL DELAY
+LOAD LED_output, F1
+OUTPUT LED_output, seg3 
+CALL DELAY
+FETCH LED_output, 0E
+OUTPUT LED_output, seg4
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg5
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg6
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg7
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg8
+CALL DELAY
+SUB loop1Reg, 01
+JUMP NZ, LOOPA5
+SUB loop2Reg, 01
+JUMP NZ, LOOPB5
+
+;ELEC 4
+LOAD loop2Reg, scrollOuter
+LOOPB6:
+LOAD loop1Reg, scrollInner
+LOOPA6:  
+FETCH LED_output, 04
+OUTPUT LED_output, seg1 
+CALL DELAY
+FETCH LED_output, 0C
+OUTPUT LED_output, seg2 
+CALL DELAY
+FETCH LED_output, 0E
+OUTPUT LED_output, seg3 
+CALL DELAY
+LOAD LED_output, F1
+OUTPUT LED_output, seg4 
+CALL DELAY
+FETCH LED_output, 0E
+OUTPUT LED_output, seg5
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg6
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg7
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg8
+CALL DELAY
+SUB loop1Reg, 01
+JUMP NZ, LOOPA6
+SUB loop2Reg, 01
+JUMP NZ, LOOPB6
+
+;ELEC 42
+LOAD loop2Reg, scrollOuter
+LOOPB7:
+LOAD loop1Reg, scrollInner
+LOOPA7:  
+FETCH LED_output, 02
+OUTPUT LED_output, seg1 
+CALL DELAY
+FETCH LED_output, 04
+OUTPUT LED_output, seg2 
+CALL DELAY
+FETCH LED_output, 0C
+OUTPUT LED_output, seg3 
+CALL DELAY
+FETCH LED_output, 0E
+OUTPUT LED_output, seg4 
+CALL DELAY
+LOAD LED_output, F1
+OUTPUT LED_output, seg5 
+CALL DELAY
+FETCH LED_output, 0E
+OUTPUT LED_output, seg6
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg7
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg8
+CALL DELAY
+SUB loop1Reg, 01
+JUMP NZ, LOOPA7
+SUB loop2Reg, 01
+JUMP NZ, LOOPB7
+
+;ELEC 420
+LOAD loop2Reg, scrollOuter
+LOOPB8:
+LOAD loop1Reg, scrollInner
+LOOPA8:  
+FETCH LED_output, 00
+OUTPUT LED_output, seg1 
+CALL DELAY
+FETCH LED_output, 02
+OUTPUT LED_output, seg2
+CALL DELAY 
+FETCH LED_output, 04
+OUTPUT LED_output, seg3 
+CALL DELAY
+FETCH LED_output, 0C
+OUTPUT LED_output, seg4 
+CALL DELAY
+FETCH LED_output, 0E
+OUTPUT LED_output, seg5 
+CALL DELAY
+LOAD LED_output, F1
+OUTPUT LED_output, seg6 
+CALL DELAY
+FETCH LED_output, 0E
+OUTPUT LED_output, seg7
+CALL DELAY
+LOAD LED_output, FF
+OUTPUT LED_output, seg8
+CALL DELAY
+SUB loop1Reg, 01
+JUMP NZ, LOOPA8
+SUB loop2Reg, 01
+JUMP NZ, LOOPB8
+
+;ELEC 4200
+LOAD loop2Reg, scrollOuter
+LOOPB9:
+LOAD loop1Reg, scrollInner
+LOOPA9:  
+FETCH LED_output, 00
+OUTPUT LED_output, seg1 
+CALL DELAY
+FETCH LED_output, 00
+OUTPUT LED_output, seg2 
+CALL DELAY
+FETCH LED_output, 02
+OUTPUT LED_output, seg3 
+CALL DELAY
+FETCH LED_output, 04
+OUTPUT LED_output, seg4 
+CALL DELAY
+FETCH LED_output, 0C
+OUTPUT LED_output, seg5 
+CALL DELAY
+FETCH LED_output, 0E
+OUTPUT LED_output, seg6 
+CALL DELAY
+LOAD LED_output, F1
+OUTPUT LED_output, seg7 
+CALL DELAY
+FETCH LED_output, 0E
+OUTPUT LED_output, seg8
+CALL DELAY
+SUB loop1Reg, 01
+JUMP NZ, LOOPA9
+SUB loop2Reg, 01
+JUMP NZ, LOOPB9
+
+JUMP START
+
+DELAY:
+;-------Delay Loop-----------
+LOAD delayReg, 5'd
+
+delayLoop: 
+SUB delayReg, 01
+JUMP NZ, delayLoop
+;----------------------------
+RETURN
+	
+	  
+ADDRESS 3FF
+ISR : INPUT dataInput, allData ;Only holds data
+      INPUT address, allData ;Only holds address
+	  
+      AND dataInput, 0F   ;clear first 4 bits 
+      AND address, 30   ;clear first first 2 and last 4 bits
+
+	  
+	  TEST address, FF
+	  JUMP Z, firstSeg
+	  
+	  COMPARE address, 10
+	  JUMP Z, secondSeg
+	  
+	  COMPARE address, 20
+	  JUMP Z, thirdSeg
+	  
+	  COMPARE address, 30
+	  JUMP Z, fourthSeg
+	  
+	  JUMP END
+	  
+	  
+	  firstSeg: 
+	  LOAD  data1, dataInput
+	  JUMP END
+	  secondSeg:
+	  LOAD  data2, dataInput
+	  JUMP END
+	  thirdSeg:
+	  LOAD  data3, dataInput
+	  JUMP END
+	  fourthSeg: 
+      LOAD data4, dataInput
+	  
+	  END:
+	  RETURNI ENABLE
