@@ -1,6 +1,10 @@
 ----------------------------------------------------------------------------------
 -- Company: 
 -- Engineer: Marco A. Zuniga
+-- Description: Hardcoded register/counter as a load register.
+--              LEDs should change state based off switches 
+--              on an event.
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.all;
