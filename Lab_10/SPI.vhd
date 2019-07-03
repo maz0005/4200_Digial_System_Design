@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------------
 -- Company: 
--- Engineer: 
+-- Engineer: Marco A. Zuniga
 -- 
 -- Create Date: 11/06/2018 07:52:14 PM
 -- Design Name: 
@@ -9,7 +9,8 @@
 -- Target Devices: 
 -- Tool Versions: 
 -- Description: 
--- 
+-- Serial peripheral interface
+
 -- Dependencies: 
 -- 
 -- Revision:
@@ -127,7 +128,6 @@ end if;
 end process;
 
 ---------------------Begin digital one-shot model---------------------
----------------Study, but do not edit!--------------------------------
 
 -- First D flip-flop of the one-shot circuit
 ONESHOTFF1 : process (CLK)
