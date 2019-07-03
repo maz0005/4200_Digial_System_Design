@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------------
 -- Company: 
--- Engineer: 
+-- Engineer: Marco A. Zuniga
 -- 
 -- Create Date: 09/19/2018 03:29:09 PM
 -- Design Name: 
@@ -8,15 +8,8 @@
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
--- Description: 
--- 
--- Dependencies: 
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
-----------------------------------------------------------------------------------
+-- Description: Display a 4 bit number on a segment display controlled by 4 switches
+
 
 
 library IEEE;
